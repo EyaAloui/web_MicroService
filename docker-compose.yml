@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  eurekaserver:
+    build:
+      context: ./eureka-service
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    environment:
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+    container_name: eureka-service-container
+    image: eureka-service-image
+
+  quizevaluation-service:
+    build:
+      context: ./quizevaluation-service
+      dockerfile: Dockerfile  
+    ports:
+      - "8095:8095"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaserver:8761/eureka/
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=true
+      - SPRING_APPLICATION_NAME=QuizEvaluation
+    depends_on:
+      - eurekaserver
+    container_name: quizevaluation-service-container
+    image: quizevaluation-service-image
+
+  apigateway-service:
+    build:
+      context: ./apigateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaserver:8761/eureka/
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=true
+      - SPRING_APPLICATION_NAME=API_Gateway
+    depends_on:
+      - eurekaserver
+      - quizevaluation-service
+    container_name: apigateway-service-container
+    image: apigateway-service-image
