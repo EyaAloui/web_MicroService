@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IResponseService {
 
-    Response addResponse(Response response);
+    Response addResponse(Response response, Long complaintId);
     List<Response> retrieveAllResponses();
 
     Response retrieveResponse(Long id);

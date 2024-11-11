@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableDiscoveryClient
 public class ComplaintManagementApplication {
 
-    @Autowired
-    private BadWordsFilterService badWordsFilterService;
+//    @Autowired
+//    private BadWordsFilterService badWordsFilterService;
 
     public static void main(String[] args) {
         SpringApplication.run(ComplaintManagementApplication.class, args);

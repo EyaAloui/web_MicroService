@@ -19,16 +19,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ResponseServiceImp implements IResponseService{
 
+
     @Autowired
     ComplaintRepository complaintr;
     @Autowired
     ResponseRepository responser;
 
     @Override
-    public Response addResponse(Response response) {
+    public Response addResponse(Response response, Long complaintId) {
+
+        Complaint complaint = complaintr.findById(complaintId)
+                .orElseThrow(() -> new IllegalArgumentException("Complaint not found with ID: " + complaintId));
 
         response.setCreatedDate(new Date()); // Set createdDate to current date
+        response.setComplaint(complaint);
+        complaintr.save(complaint);
+
         return responser.save(response);
+        // Add response to the complaint's response list
     }
 
     @Override

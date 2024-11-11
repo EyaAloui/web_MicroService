@@ -12,14 +12,15 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ResponseController {
 
+
     IResponseService responseService;
 
     @PostMapping("/addResponse")
     @ResponseBody
-    public Response addResponse(@RequestBody Response response)
+    public Response addResponse(@RequestBody Response response , @PathVariable("complaintId") Long id)
 
     {
-        return responseService.addResponse(response);
+        return responseService.addResponse(response, id);
 
     }
     @GetMapping("/retrieve-response/{responseId}")
@@ -60,7 +61,6 @@ public class ResponseController {
         responseService.deleteResponse(id);
 
     }
-
 
 
 }

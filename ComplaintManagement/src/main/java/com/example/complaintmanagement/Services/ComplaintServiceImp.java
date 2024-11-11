@@ -146,9 +146,10 @@ public class ComplaintServiceImp  implements IComplaintService{
 
 
 
+
     @Override
     public List<Complaint> SortComplaintPriority() {
-        return null;
+        return complaintr.findAllByOrderByPriorityAsc();
     }
 
     @Override
@@ -158,7 +159,7 @@ public class ComplaintServiceImp  implements IComplaintService{
 
     @Override
     public List<Complaint> SortComplaintCreateDate() {
-        return null;
+        return complaintr.findAllByCreatedDateAsc();
     }
 
     @Override
@@ -168,16 +169,17 @@ public class ComplaintServiceImp  implements IComplaintService{
 
     @Override
     public List<Complaint> searchComplaintsStatus(String searchText) {
-        return null;
+        return complaintr.findComplaintsByStatus(searchText);
     }
 
     @Override
     public List<Complaint> searchComplaintsCategory(String searchText) {
-        return null;
+        return complaintr.findComplaintsByComplaintCategory(searchText);
     }
 
     @Override
     public List<Complaint> filterComplaints(String filterText) {
-        return null;
+        return complaintr.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(filterText, filterText);
+
     }
 }

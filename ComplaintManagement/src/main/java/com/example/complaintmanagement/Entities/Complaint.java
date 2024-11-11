@@ -35,5 +35,8 @@ public class Complaint {
     private String notificationEmail;
     private String notificationSMS;
 
+    @OneToOne
+    @JoinColumn(name = "response_id") // Foreign key column
+    private Response response;
 
 }

@@ -63,8 +63,9 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
     List<Complaint> findComplaintsByStatus(@Param("status") String status);
 
     @Query("SELECT c FROM Complaint c WHERE (:status IS NULL OR c.complaintCategory = :complaintCategory)")
-    List<Complaint> findComlaintsByStatus(@Param("complaintCategory") String complaintCategory);
-    /*
+    List<Complaint> findComplaintsByComplaintCategory(@Param("complaintCategory") String complaintCategory);
+
+    List<Complaint> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String titlesearch, String descriptionsearch);
 
 
     /*
