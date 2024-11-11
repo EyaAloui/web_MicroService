@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  eureka-server:
+    image: amal004/eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - mynetwork
+    environment:
+      - eureka.client.register-with-eureka=false
+      - eureka.client.fetch-registry=false
+      - eureka.instance.hostname=eureka-server
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+
+  api-gateway:
+    image: amal004/get-way
+    container_name: get-way
+    ports:
+      - "8085:8085"
+    networks:
+      - mynetwork
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+
+  lecon:
+    image: amal004/lecon-app
+    container_name: lecon-app
+    ports:
+      - "8082:8082"
+    networks:
+      - mynetwork
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+
+  ressource:
+    image: amal004/ressource-app
+    container_name: ressource-app
+    ports:
+      - "8087:8087"
+    networks:
+      - mynetwork
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+    networks:
+      - mynetwork
+    command:
+      - start-dev
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
