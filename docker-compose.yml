@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    build:
+      context: ./eureka
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - backend
+    container_name: eureka-container
+    image: eureka-image
+
+  apigateway-service:
+    build:
+      context: ./apigateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=true
+      - SPRING_APPLICATION_NAME=API_Gateway
+    networks:
+      - backend
+    depends_on:
+      - eureka-server
+    container_name: apigateway-service-container
+    image: apigateway-service-image
+
+  course-m:
+    build:
+      context: ./course-m
+      dockerfile: Dockerfile
+    ports:
+      - "8089:8089"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+      - apigateway-service
+    networks:
+      - backend
+    container_name: course-m-container
+    image: course-m-image
+
+networks:
+  backend:
+    driver: bridge

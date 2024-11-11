@@ -1,0 +1,26 @@
+<div class="course-form">
+  <h2>Update</h2>
+  <form (submit)="updateCourse()">
+    <div class="form-group">
+      <label for="title">Titre :</label>
+      <input type="text" id="title" name="title" [(ngModel)]="course.title" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description :</label>
+      <textarea id="description" name="description" [(ngModel)]="course.description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="startDate">Date de début :</label>
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="course.startDate" required>
+    </div>
+    <div class="form-group">
+      <label for="endDate">Date de fin :</label>
+      <input type="date" id="endDate" name="endDate" [(ngModel)]="course.endDate" required>
+    </div>
+    <div class="form-group">
+      <label for="price">Prix :</label>
+      <input type="text" id="price" name="price" [(ngModel)]="course.price" required>
+    </div>
+    <button type="submit" class="btn-submit">Update cours</button>
+  </form>
+</div>

@@ -1,0 +1,36 @@
+.search-form {
+  h2 {
+    margin-bottom: 15px;
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .form-group {
+      margin-right: 10px;
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 300px; // Ajustez la largeur selon vos besoins
+      }
+    }
+
+    .btn-search {
+      background-color: rgba(238, 130, 193, 0.656); // Couleur violette pour le bouton Rechercher
+      border-color: rgba(238, 130, 193, 0.656);;
+      color: #fff; // Couleur du texte en blanc
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #8a2be2; // Couleur violette foncée au survol
+        border-color: #8a2be2;
+      }
+    }
+  }
+}

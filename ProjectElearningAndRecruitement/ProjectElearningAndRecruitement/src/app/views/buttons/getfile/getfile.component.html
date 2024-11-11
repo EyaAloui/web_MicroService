@@ -1,0 +1,42 @@
+ <div class="card">
+  <h1>Liste des Fichiers</h1>
+  <hr>
+  <div class="card-body">
+   
+    
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+        <thead>
+          <tr>
+            <th scope="col">Nom du fichier</th>
+            <th scope="col">Type de contenu</th>
+            <th scope="col">File</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="files.length > 0; else noFiles">
+            <tr *ngFor="let file of files">
+              <td>{{file.filename}}</td>
+              <td>{{ file.contentType }}</td>
+              
+              <td>
+                <a href="data:{{ file.contentType }};base64,{{ file.data }}"  download="{{ file.filename }}">{{file.filename}}</a>
+              </td>
+              <td class="text-center">
+                <button class="btn btn-danger" type="submit" (click)="deleteFile(file.fileID)">Supprimer</button>
+                <button (click)="assignCourse(file)" class="btn btn-primary">Affecter au cours</button>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #noFiles>
+            <tr>
+              <td colspan="3" class="text-center">Aucun fichier disponible.</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

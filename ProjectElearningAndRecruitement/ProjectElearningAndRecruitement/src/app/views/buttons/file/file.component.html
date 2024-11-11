@@ -1,0 +1,14 @@
+<div class="card border-secondary" style="max-width: 400px;">
+  <div class="card-header bg-purple text-white">
+    <h2 class="card-title text-black">Ajouter un fichier</h2>
+  </div>
+  <div class="card-body bg-white">
+    <form (submit)="uploadFile()">
+      <div class="form-group">
+        <label for="fileInput">Sélectionner un fichier :</label>
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" class="form-control-file">
+      </div>
+      <button  class="btn-submit" type="submit">Upload</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<section id="popular-courses" class="courses">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Courses</h2>
+      <p>Cours populaires</p>
+    </div>
+    <div class="row" data-aos="zoom-in" data-aos-delay="100">
+      <div class="col-lg-12">
+        <div class="row">
+          <ng-container *ngIf="course.length > 0; else noCourses">
+            <div *ngFor="let course of course; let i = index" class="col-lg-4 col-md-6 d-flex align-items-stretch">
+              <div class="course-item">
+                <img [src]="imagesList[i % imagesList.length]" class="img-fluid" alt="...">
+                <div class="course-content">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="course-title"><a style="color: #9904d4;">{{ course.title }}</a></h3>
+                    <p class="price">Price: {{ course.price }} DT</p>
+                  </div>
+                  <div class="cadre-details">
+                    <a href="./test" class="lien-details">Détails</a>
+                  </div>
+                  <p class="course-description" style="color: black;">Description: {{ course.description }}</p>
+                  <p class="course-date" style="color: black;">Date de début: {{ course.startDate | date }}</p>
+                  <p class="course-date" style="color: black;">Date de fin: {{ course.endDate | date }}</p>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <ng-template #noCourses>
+      <!-- Contenu à afficher lorsqu'il n'y a pas de cours -->
+      <p>Aucun cours disponible.</p>
+    </ng-template>
+  </div>
+</section>

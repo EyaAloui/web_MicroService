@@ -1,0 +1,61 @@
+<div class="card">
+  <h1>Liste des Cours</h1>
+  <hr>
+  <div class="card-body">
+    <div class="right">
+      <a class="btn btn-outline-success" (click)="navigatetoadd()">
+        <i class="icon-add_box"></i> Ajout
+      </a>
+      <hr>
+    </div>
+    <div class="search-form">
+      <h2>Recherche de cours</h2>
+      <form (ngSubmit)="searchCourses(criteria)" class="form-inline">
+        <div class="form-group">
+          <label for="criteria">Critères de recherche :</label>
+          <input type="text" id="criteria" name="criteria" [(ngModel)]="criteria" class="form-control" placeholder="Entrez vos critères de recherche">
+        </div>
+        <button type="submit" class="btn btn-primary btn-search">Rechercher</button>
+      </form>
+    </div>
+    
+    
+    
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+        <thead>
+          <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Description</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            <th scope="col">Prix</th>
+            <th scope="col" class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="course.length > 0; else noCourses">
+            <tr *ngFor="let cours of course">
+              <td>{{ cours.title }}</td>
+              <td>{{ cours.description}}</td>
+              <td>{{ cours.startDate | date }}</td>
+              <td>{{ cours.endDate | date }}</td>
+              <td>{{ cours.price }}</td>
+              <td class="text-center">
+                <button  class="btn btn-danger"  type="submit" (click)="deleteCourse(cours.courseID)">Delete</button>
+                <button class="btn btn-primary"   type="submit" (click)="navigatetoUp(cours.courseID)">Mettre à jour</button>
+              </td>
+             
+            </tr>
+          </ng-container>
+          <ng-template #noCourses>
+            <tr>
+              <td colspan="6" class="text-center">Aucun cours disponible.</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

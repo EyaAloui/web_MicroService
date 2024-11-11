@@ -1,0 +1,38 @@
+/* Styles pour le card */
+.card {
+  max-width: 400px; /* Largeur maximale du card */
+  border: 1px solid #fff; /* Bordure du card */
+  border-radius: 5px; /* Coins arrondis du card */
+}
+
+/* Styles pour le card header */
+.card-header {
+  background-color: #d966f0; /* Couleur de fond du card header */
+  color: #fff; /* Couleur du texte du card header */
+}
+
+/* Styles pour le card body */
+.card-body {
+  background-color: #fff; /* Couleur de fond du card body */
+}
+
+/* Styles pour le label */
+label {
+  font-weight: bold; /* Texte en gras pour le label */
+}
+
+/* Styles pour le bouton Upload */
+.btn-submit {
+  background-color: #d76ef8; /* Couleur de fond du bouton Upload */
+  color: #fff; /* Couleur du texte du bouton Upload */
+  padding: 10px 10px; /* Ajout de rembourrage autour du texte du bouton Upload */
+  border: none; /* Suppression de la bordure du bouton */
+  border-radius: 5px; /* Coins arrondis du bouton */
+  cursor: pointer; /* Curseur de la souris en pointeur au survol du bouton */
+ 
+}
+
+/* Styles pour le bouton Upload au survol */
+.btn-submit:hover {
+  background-color: #e655b5; /* Couleur de fond du bouton au survol */
+}
